@@ -1,0 +1,42 @@
+<ion-button color="danger" id="MClient">Ler QRCode</ion-button>
+<ion-modal trigger="MClient" [isOpen]="false" [breakpoints]="[0.1, 0.5, 1]" [initialBreakpoint]="0.5">
+  <ng-template>
+    <ion-content>
+      <ion-header translucent="" role="banner"
+        class="md header-md header-translucent header-collapse-none header-translucent-md hydrated">
+        <ion-toolbar class="toolbar-title-default md in-toolbar hydrated">
+          <ion-title class="md title-default hydrated">Acesso ao Cardapio</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-row class="ion-justify-content-center ion-margin">
+        <ion-item style="margin-bottom: 1rem;">
+          <ion-label position="stacked" >Código de acesso:</ion-label>
+          <ion-input type="text" #accessCode></ion-input>
+        </ion-item>
+        <ion-button color="success" (click)="AccessRedirect(accessCode.value)">Confirmar</ion-button>
+      </ion-row>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-button color="danger" id={{ID_MODAL_ENTERPRISE}}>Acesso Empresarial</ion-button>
+
+<ion-modal trigger={{ID_MODAL_ENTERPRISE}} [isOpen]="false" [breakpoints]="[0.1, 0.5, 1]" [initialBreakpoint]="0.5">
+  <ng-template>
+    <ion-content>
+      <ion-header translucent="" role="banner"
+        class="md header-md header-translucent header-collapse-none header-translucent-md hydrated">
+        <ion-toolbar class="toolbar-title-default md in-toolbar hydrated">
+        </ion-toolbar>
+      </ion-header>
+      <ion-row class="ion-justify-content-center ion-margin">
+        <ion-item style="margin-bottom: 1rem;">
+          <ion-label position="stacked">CNPJ: </ion-label>
+          <ion-input type="text" #cnpj></ion-input>
+        </ion-item>
+        <ion-button color="success" (click)="EnterpriseRedirect('{{ID_MODAL_ENTERPRISE}}',cnpj.value)">Confirmar</ion-button>
+      </ion-row>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+

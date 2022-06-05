@@ -4,10 +4,12 @@ import { RouteReuseStrategy } from '@angular/router';
 
 import { HttpClientModule } from '@angular/common/http';
 
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { IonicModule, IonicRouteStrategy} from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { IndexModule } from './2 - public/index/index.module';
+import { RegisterModule } from './1 - admin/register/register.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,7 +17,9 @@ import { AppRoutingModule } from './app-routing.module';
   imports: [BrowserModule,
      IonicModule.forRoot(),
      AppRoutingModule,
-     HttpClientModule],
+     HttpClientModule,
+     IndexModule,
+     RegisterModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

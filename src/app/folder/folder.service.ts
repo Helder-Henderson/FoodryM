@@ -10,7 +10,7 @@ export class FolderService {
   constructor(private _client : HttpClient) { }
 
   public AdicionarPedido() {
-    //Methodo post
+    
   }
 
 }
