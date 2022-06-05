@@ -29,15 +29,16 @@ export class IndexComponent implements OnInit {
     console.log(accessCode)
   }
 
-  EnterpriseRedirect(id : string, cnpj : string, password : string = "") {
-    console.log(`${cnpj} , ${password}`)
+  EnterpriseRedirect(id : string, cnpj : string) {
+    console.log(`${cnpj}`)
     
     //service -> cnpj está cadastrado 
 
     var isValid = false;
 
     if(!isValid) {
-      this.router.navigateByUrl('register').then(x => {
+      this.router.navigateByUrl('register')
+      this.modalController.dismiss(id).then(x => {
         this.modalController.dismiss(id)
       }).catch(x => {
         console.log("catch" + x)
