@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { RegisterComponent } from './register.component';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [RegisterComponent],
@@ -13,7 +13,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     IonicModule.forRoot(),
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   bootstrap: [RegisterComponent],
 })

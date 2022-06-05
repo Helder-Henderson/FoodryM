@@ -1,18 +1,20 @@
-<ion-item style="margin-bottom: 1rem;">
-  <ion-label position="stacked">CNPJ: </ion-label>
-  <ion-input type="text" #cnpj></ion-input>
+<form [formGroup]="form" (ngSubmit)="register(form.controls)">
+  <ion-item style="margin-bottom: 1rem;">
+    <ion-label position="stacked">CNPJ: </ion-label>
+    <ion-input type="text" formControlName="cnpj"></ion-input>
 
-  <ion-label position="stacked">Senha: </ion-label>
-  <ion-input type="password" #password></ion-input>
+    <ion-label position="stacked">Senha: </ion-label>
+    <ion-input type="text" formControlName="password"></ion-input>
 
-  <ion-label position="stacked">Nome Fantasia: </ion-label>
-  <ion-input type="text" #fantasyName></ion-input>
+    <ion-label position="stacked">Nome Fantasia: </ion-label>
+    <ion-input type="text" formControlName="fantasyName" required="true"></ion-input>
 
-  <ion-label position="stacked">Telefone: </ion-label>
-  <ion-input type="text" #phone></ion-input>
+    <ion-label position="stacked">Telefone: </ion-label>
+    <ion-input type="text" formControlName="phone" ></ion-input>
 
-  <ion-label position="stacked">E-mail: </ion-label>
-  <ion-input type="email" #email></ion-input>
-</ion-item>
+    <ion-label position="stacked">E-mail: </ion-label>
+    <ion-input type="email" formControlName="email" required="true"></ion-input>
+  </ion-item>
 
-<ion-button type="button" color="danger" (click)="Register(cnpj.value,password.value,fantasyName.value,phone.value,email.value)">Confirmar</ion-button>
+  <ion-button disabled={{!form.valid}} type="submit" color="danger">Confirmar</ion-button>
+</form>
