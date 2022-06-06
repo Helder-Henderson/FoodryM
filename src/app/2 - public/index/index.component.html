@@ -15,7 +15,7 @@
               <ion-label position="stacked">Código de acesso:</ion-label>
               <ion-input type="text" #accessCode placeholder="ex: 0001"></ion-input>
             </ion-item>
-            <ion-button color="danger" (click)="AccessRedirect(accessCode.value)">Confirmar</ion-button>
+            <ion-button (click)="AccessRedirect(accessCode.value)">Confirmar</ion-button>
           </ion-row>
         </ion-content>
       </ng-template>
@@ -35,7 +35,7 @@
                 <ion-label position="stacked">CNPJ: </ion-label>
                 <ion-input type="text" formControlName="cnpj" minlength="14" maxlength="14" placeholder="ex: 00.000.000/0000-00"></ion-input>
               </ion-item>
-              <ion-button disabled={{!form.valid}} type="submit" color="danger">Entrar</ion-button>
+              <ion-button disabled={{!form.valid}} type="submit">Entrar</ion-button>
             </ion-row>
           </form>
         </ion-content>
@@ -47,8 +47,8 @@
 
 <ion-footer class="ion-no-border">
   <ion-toolbar>
-    <ion-button color="danger" id="MClient" expand="block">Ler QRCode</ion-button>
+    <ion-button id="MClient" expand="block">Ler QRCode</ion-button>
     <br>
-    <ion-button color="danger" id={{ID_MODAL_ENTERPRISE}} expand="block">Acesso Empresarial</ion-button>
+    <ion-button id={{ID_MODAL_ENTERPRISE}} expand="block">Acesso Empresarial</ion-button>
   </ion-toolbar>
 </ion-footer>
