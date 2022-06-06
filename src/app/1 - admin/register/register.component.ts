@@ -20,9 +20,9 @@ export class RegisterComponent implements OnInit {
 
   initFormRegister(): void {
     this.form = this.formBuilder.group({
+      cnpj: [null, [Validators.minLength(14),Validators.maxLength(14), Validators.required]],
       password: [null, [Validators.minLength(8), Validators.required]],
-      cnpj: [null, [Validators.minLength(12), Validators.required]],
-      fantasyName: [null],
+      fantasyName: [null, [Validators.minLength(4), Validators.required]],
       phone: [null],
       email: [null, [Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
     })

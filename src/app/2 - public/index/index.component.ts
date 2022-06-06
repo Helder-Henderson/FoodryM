@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-index',
@@ -9,19 +10,27 @@ import { ModalController } from '@ionic/angular';
 })
 
 export class IndexComponent implements OnInit {
-
-  constructor(private router: Router, public modalController : ModalController) { }
-
+  
   ID_MODAL_ENTERPRISE : string = "MEnterprise";
+  form: FormGroup;
+
+  constructor(private router: Router, public modalController : ModalController, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.InitModelController()
+    this.initFormRegister();
   }
 
   InitModelController() {
     this.modalController.create({
       component: IndexComponent
     });
+  }  
+  
+  initFormRegister(): void {
+    this.form = this.formBuilder.group({
+      cnpj: [null, [Validators.minLength(14),Validators.maxLength(14), Validators.required]]
+    })
   }
 
 
@@ -29,17 +38,14 @@ export class IndexComponent implements OnInit {
     console.log(accessCode)
   }
 
-  EnterpriseRedirect(id : string, cnpj : string) {
-    console.log(`${cnpj}`)
-    
-    //service -> cnpj está cadastrado 
+  EnterpriseRedirect(idModal : string, data: FormGroup) {
+    console.log(this.form.value.cnpj)
 
-    var isValid = false;
-
-    if(!isValid) {
+    if(this.form.valid) {
+      //service -> verificar se cnpj está cadastrado 
       this.router.navigateByUrl('register')
-      this.modalController.dismiss(id).then(x => {
-        this.modalController.dismiss(id)
+      this.modalController.dismiss(idModal).then(x => {
+        this.modalController.dismiss(idModal)
       }).catch(x => {
         console.log("catch" + x)
       });

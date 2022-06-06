@@ -4,7 +4,7 @@ import { IndexComponent } from './index.component';
 import { IonicModule} from '@ionic/angular';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [IndexComponent],
@@ -12,7 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     AppRoutingModule,
     IonicModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   bootstrap: [IndexComponent],
 })
