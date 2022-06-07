@@ -22,6 +22,11 @@ export class HomePage implements OnInit {
       title: 'Cardápio',
       url: '/home/menu',
       icon: 'list'
+    },
+    {
+      title: 'Sair',
+      url: '/exit',
+      icon: 'exit'
     }
   ];
 

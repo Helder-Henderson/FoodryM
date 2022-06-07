@@ -25,6 +25,10 @@ export const routes: Routes = [
       component:NotfoundComponent
     },
     {
+      path: 'exit',
+      redirectTo: ''
+    },
+    {
       path:"**", // redirect if url is not available or other problem
       redirectTo:"notFound",
       pathMatch:'full'

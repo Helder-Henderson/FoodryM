@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastComponent } from '../../components/toast/toast.component';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-index',
@@ -10,15 +11,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 
 export class IndexComponent implements OnInit {
-  
-  ID_MODAL_ENTERPRISE : string = "MEnterprise";
-  form: FormGroup;
 
-  constructor(private router: Router, public modalController : ModalController, private formBuilder: FormBuilder) { }
+  isModalOpenEnterprise: string = "false";
+  isModalOpenPassword: string = "false";
+  formEnterprise: FormGroup;
+  formPassword: FormGroup;
+
+  constructor(private router: Router, private formBuilder: FormBuilder,public modalController : ModalController, private toastComponent: ToastComponent) { }
 
   ngOnInit() {
     this.InitModelController()
-    this.initFormRegister();
+    this.initForms();
   }
 
   InitModelController() {
@@ -26,29 +29,52 @@ export class IndexComponent implements OnInit {
       component: IndexComponent
     });
   }  
-  
-  initFormRegister(): void {
-    this.form = this.formBuilder.group({
-      cnpj: [null, [Validators.minLength(14),Validators.maxLength(14), Validators.required]]
-    })
+
+  initForms(): void {
+    this.formEnterprise = this.formBuilder.group({
+      cnpj: [null, [Validators.minLength(14), Validators.maxLength(14), Validators.required]]
+    });
+    this.formPassword = this.formBuilder.group({
+      password: [null, [Validators.minLength(8), Validators.required]]
+    });
   }
 
+  setIsModalOpenEnterprise(status: string) {
+    this.isModalOpenEnterprise = status;
+  }
 
-  AccessRedirect(accessCode : string ) {
+  setIsModalOpenPassword(status: string) {
+    this.isModalOpenPassword = status;
+  }
+
+  AccessRedirect(accessCode: string) {
     console.log(accessCode)
   }
 
-  EnterpriseRedirect(idModal : string, data: FormGroup) {
-    console.log(this.form.value.cnpj)
-
-    if(this.form.valid) {
+  EnterpriseValidation() {
+    if (this.formEnterprise.valid) {
       //service -> verificar se cnpj está cadastrado 
-      this.router.navigateByUrl('register')
-      this.modalController.dismiss(idModal).then(x => {
-        this.modalController.dismiss(idModal)
-      }).catch(x => {
-        console.log("catch" + x)
-      });
+      this.setIsModalOpenEnterprise('false');
+      if (true) {
+        this.setIsModalOpenPassword('true');
+      }
+      else {
+        this.modalController.dismiss();
+        this.router.navigateByUrl('register');
+      }
+    }
+  }
+
+  EnterpriseAuthentication() {
+    if (this.formPassword.valid) {
+      // autentica cadastro
+      if (true) {
+        this.modalController.dismiss();
+        this.router.navigateByUrl("home/dashboard");
+      }
+      else {
+        this.toastComponent.presentToast('Senha incorreta!', 3000);
+      }
     }
   }
 

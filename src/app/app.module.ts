@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { IndexModule } from './2 - public/index/index.module';
 import { RegisterModule } from './1 - admin/register/register.module';
+import { ToastComponent } from './components/toast/toast.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +21,7 @@ import { RegisterModule } from './1 - admin/register/register.module';
      HttpClientModule,
      IndexModule,
      RegisterModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [ToastComponent,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

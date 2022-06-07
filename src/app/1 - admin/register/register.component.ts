@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
 
   register(data: IRegister): void {
     if (this.form.valid) {
-      this.router.navigateByUrl("home/menu")
+      this.router.navigateByUrl("home/dashboard")
     }
     // registraEmpresa
     // Se tudo certo então 
