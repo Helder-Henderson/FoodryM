@@ -15,7 +15,17 @@
   </ion-header>
 
   <div id="container">
-    <strong class="capitalize">Cardápio</strong>
-    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <ion-list-header lines="inset" class="box-item">
+      <ion-avatar class="box-avatar">
+        <ion-img class="" src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"></ion-img>
+      </ion-avatar>
+      <ion-label>Service Name</ion-label>
+      <ion-icon id="dynamic" (click)="createModal()" class="box-dropDown" name="eye-outline"></ion-icon>
+    </ion-list-header>
+
+    <ion-modal trigger="dynamic">
+      <app-details></app-details>
+    </ion-modal>
+
   </div>
 </ion-content>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastComponent } from '../../components/toast/toast.component';
@@ -17,7 +17,7 @@ export class IndexComponent implements OnInit {
   formEnterprise: FormGroup;
   formPassword: FormGroup;
 
-  constructor(private router: Router, private formBuilder: FormBuilder,public modalController : ModalController, private toastComponent: ToastComponent) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, public modalController: ModalController, private toastComponent: ToastComponent) { }
 
   ngOnInit() {
     this.InitModelController()
@@ -28,7 +28,7 @@ export class IndexComponent implements OnInit {
     this.modalController.create({
       component: IndexComponent
     });
-  }  
+  }
 
   initForms(): void {
     this.formEnterprise = this.formBuilder.group({
@@ -65,11 +65,17 @@ export class IndexComponent implements OnInit {
     }
   }
 
+  resetForms() {
+    this.formPassword.reset()
+    this.formEnterprise.reset()
+  }
+
   EnterpriseAuthentication() {
     if (this.formPassword.valid) {
       // autentica cadastro
       if (true) {
         this.modalController.dismiss();
+        this.resetForms(); // Isso deveria existir depois dos dados serem enviados para a service.
         this.router.navigateByUrl("home/dashboard");
       }
       else {
