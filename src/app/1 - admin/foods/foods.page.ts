@@ -12,11 +12,11 @@ export class FoodsPage implements OnInit {
 
   formFood: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, public routerOutlet: IonRouterOutlet, public modalController : ModalController) { }
+  constructor(private formBuilder: FormBuilder, public routerOutlet: IonRouterOutlet, public modalController: ModalController) { }
 
   ngOnInit() {
     this.initForms()
-  } 
+  }
 
   initForms(): void {
     this.formFood = this.formBuilder.group({
@@ -27,12 +27,34 @@ export class FoodsPage implements OnInit {
     });
   }
 
+  mascaraTime() {
+    var v = this.formFood.controls.time.value
+    v = v.replace(/\D/g, "");
+    this.formFood.controls.time.setValue(v);
+  }
+
+  mascaraPrice() {
+    var v = this.formFood.controls.price.value
+    v = v.replace(/\D/g, "");
+    v = v.replace(/0*/, "");
+    v = this.pad(v, 3);
+    v = v.replace(/(\d)(\d{2}$)/, "$1,$2");
+    this.formFood.controls.price.setValue(v);
+  }
+
+  pad(num: string, size: number): string {
+    if (num == '') {
+      return '';
+    }
+    while (num.length < size) num = "0" + num;
+    return num;
+  }
+
   dismissModal() {
     this.modalController.dismiss();
   }
 
-  AddFood()
-  {
+  AddFood() {
     if (this.formFood.valid) {
       // Cadastra Prato
     }

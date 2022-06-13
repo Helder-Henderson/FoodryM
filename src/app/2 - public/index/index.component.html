@@ -7,7 +7,7 @@
           <ion-row class="ion-justify-content-center ion-margin">
             <ion-item style="margin-bottom: 1rem;">
               <ion-label position="stacked">Código do Cardápio:</ion-label>
-              <ion-input type="text" #accessCode placeholder="ex: 0001"></ion-input>
+              <ion-input type="number" #accessCode placeholder="ex: 0001"></ion-input>
             </ion-item>
             <ion-button (click)="AccessRedirect(accessCode.value)">Confirmar</ion-button>
           </ion-row>
@@ -23,8 +23,8 @@
             <ion-row class="ion-justify-content-center ion-margin">
               <ion-item style="margin-bottom: 1rem;">
                 <ion-label position="stacked">CNPJ: </ion-label>
-                <ion-input type="text" formControlName="cnpj" minlength="14" maxlength="14"
-                  placeholder="ex: 00.000.000/0000-00"></ion-input>
+                <ion-input type="text" inputmode="numeric" formControlName="cnpj" minlength="18" maxlength="18"
+                  placeholder="ex: 00.000.000/0000-00" (ionChange)="mascaraCnpj()"></ion-input>
               </ion-item>
             </ion-row>
 

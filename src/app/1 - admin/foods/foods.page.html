@@ -67,12 +67,14 @@
 
         <ion-item style="margin-bottom: 1rem;">
           <ion-label position="stacked">Valor(R$): </ion-label>
-          <ion-input type="number" formControlName="price" placeholder="ex: 15,00"></ion-input>
+          <ion-input type="text" inputmode="numeric" formControlName="price" placeholder="ex: 15,00"
+            (ionChange)="mascaraPrice()"></ion-input>
         </ion-item>
 
         <ion-item style="margin-bottom: 1rem;">
           <ion-label position="stacked">Tempo de Preparo(minutos): </ion-label>
-          <ion-input type="number" formControlName="time" placeholder="ex: 5"></ion-input>
+          <ion-input type="text" inputmode="numeric" formControlName="time" placeholder="ex: 5"
+            (ionChange)="mascaraTime()"></ion-input>
         </ion-item>
 
         <ion-item style="margin-bottom: 1rem;">
@@ -85,7 +87,8 @@
     <ion-footer class="md footer-md footer-translucent footer-collapse-none footer-translucent-md hydrated">
       <ion-toolbar class="toolbar-title-default md in-toolbar hydrated">
         <ion-buttons slot="end">
-          <ion-button color="primary" disabled={{!formFood.valid}} type="submit" fill="solid" (click)="AddFood()">Incluir</ion-button>
+          <ion-button color="primary" disabled={{!formFood.valid}} type="submit" fill="solid" (click)="AddFood()">
+            Incluir</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-footer>
