@@ -18,12 +18,30 @@ export class RegisterComponent implements OnInit {
     this.initFormRegister();
   }
 
+  mascaraCnpj() {
+    var v = this.form.controls.cnpj.value
+    v = v.replace(/\D/g, "");
+    v = v.replace(/^(\d{2})(\d)/, "$1.$2");
+    v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+    v = v.replace(/\.(\d{3})(\d)/, ".$1/$2");
+    v = v.replace(/(\d{4})(\d)/, "$1-$2");
+    this.form.controls.cnpj.setValue(v);
+  }
+
+  mascaraPhone() {
+    var v = this.form.controls.phone.value
+    v = v.replace(/\D/g, "");
+    v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
+    v = v.replace(/(\d)(\d{4})$/, "$1-$2");
+    this.form.controls.phone.setValue(v);
+}
+
   initFormRegister(): void {
     this.form = this.formBuilder.group({
-      cnpj: [null, [Validators.minLength(14),Validators.maxLength(14), Validators.required]],
+      cnpj: [null, [Validators.minLength(18),Validators.maxLength(18), Validators.required]],
       password: [null, [Validators.minLength(8), Validators.required]],
       fantasyName: [null, [Validators.minLength(4), Validators.required]],
-      phone: [null],
+      phone: [null, [Validators.minLength(15),Validators.maxLength(15)]],
       email: [null, [Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
     })
   }

@@ -5,7 +5,7 @@
       <form [formGroup]="form">
         <ion-item style="margin-bottom: 1rem;">
           <ion-label position="stacked">CNPJ: </ion-label>
-          <ion-input type="text" formControlName="cnpj" minlength="14" maxlength="14" placeholder="ex: 00.000.000/0000-00"></ion-input>
+          <ion-input type="text" inputmode="numeric" formControlName="cnpj" minlength="18" maxlength="18" placeholder="ex: 00.000.000/0000-00" (ionChange)="mascaraCnpj()"></ion-input>
 
           <ion-label position="stacked">Senha: </ion-label>
           <ion-input type="password" formControlName="password" minlength="8" placeholder="ex: ●●●●●●●●"></ion-input>
@@ -14,10 +14,10 @@
           <ion-input type="text" formControlName="fantasyName" required="true" minlength="4" placeholder="ex: Padaria Estrela"></ion-input>
 
           <ion-label position="stacked">Telefone: </ion-label>
-          <ion-input type="text" formControlName="phone" placeholder="ex: (00) 00000-0000"></ion-input>
+          <ion-input type="text" inputmode="tel" formControlName="phone" minlength="15" maxlength="15" placeholder="ex: (00) 00000-0000" (ionChange)="mascaraPhone()"></ion-input>
 
           <ion-label position="stacked">E-mail: </ion-label>
-          <ion-input type="email" formControlName="email" required="true"  placeholder="ex: ...@gmail.com.br"></ion-input>
+          <ion-input type="email" formControlName="email" required="true" placeholder="ex: ...@gmail.com.br"></ion-input>
         </ion-item>
       </form>
 

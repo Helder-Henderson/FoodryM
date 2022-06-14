@@ -17,11 +17,22 @@ export class IndexComponent implements OnInit {
   formEnterprise: FormGroup;
   formPassword: FormGroup;
 
+
   constructor(private router: Router, private formBuilder: FormBuilder, public modalController: ModalController, private toastComponent: ToastComponent) { }
 
   ngOnInit() {
     this.InitModelController()
     this.initForms();
+  }
+
+  mascaraCnpj() {
+    var v = this.formEnterprise.controls.cnpj.value
+    v = v.replace(/\D/g, ""); //Remove tudo o que n�o � d�gito
+    v = v.replace(/^(\d{2})(\d)/, "$1.$2"); //Coloca ponto entre o segundo e o terceiro d�gitos
+    v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3"); //Coloca ponto entre o quinto e o sexto d�gitos
+    v = v.replace(/\.(\d{3})(\d)/, ".$1/$2"); //Coloca uma barra entre o oitavo e o nono d�gitos
+    v = v.replace(/(\d{4})(\d)/, "$1-$2"); //Coloca um h�fen depois do bloco de quatro d�gitos
+    this.formEnterprise.controls.cnpj.setValue(v);
   }
 
   InitModelController() {
@@ -32,7 +43,7 @@ export class IndexComponent implements OnInit {
 
   initForms(): void {
     this.formEnterprise = this.formBuilder.group({
-      cnpj: [null, [Validators.minLength(14), Validators.maxLength(14), Validators.required]]
+      cnpj: [null, [Validators.minLength(18), Validators.maxLength(18), Validators.required]]
     });
     this.formPassword = this.formBuilder.group({
       password: [null, [Validators.minLength(8), Validators.required]]
