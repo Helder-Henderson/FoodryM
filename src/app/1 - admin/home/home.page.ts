@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterEvent } from '@angular/router';
+import { ActivatedRoute, Router, RouterEvent } from '@angular/router';
+import { AdminService } from '../admin-service.service';
 
 @Component({
   selector: 'app-home',
@@ -8,19 +9,22 @@ import { Router, RouterEvent } from '@angular/router';
 })
 export class HomePage implements OnInit {
 
+  enterpriseName: string;
+  enterpriseEmail: string;
+
   pages = [
     {title: 'Painel de Controle',
-    url: '/home/dashboard',
+    url: '/home/'+this.activatedRoute.snapshot.paramMap.get('idRestaurant')+'/dashboard',
     icon: 'clipboard'
     },
     {
       title: 'Comidas',
-      url: '/home/foods',
+      url: '/home/'+this.activatedRoute.snapshot.paramMap.get('idRestaurant')+'/foods',
       icon: 'fast-food'
     },
     {
       title: 'Cardápio',
-      url: '/home/menu',
+      url: '/home/'+this.activatedRoute.snapshot.paramMap.get('idRestaurant')+'/menu',
       icon: 'list'
     },
     {
@@ -30,9 +34,20 @@ export class HomePage implements OnInit {
     }
   ];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private service: AdminService,private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.service.GetAllRestaurant().subscribe({
+      next: (response: Array<any>) => {
+        for (var i = 0; i < response.length; i++) {
+          if (response[i].Id == this.activatedRoute.snapshot.paramMap.get('idRestaurant')) {
+            this.enterpriseName = response[i].FantasyName
+            this.enterpriseEmail = response[i].Email
+            return;
+          }
+        }
+      }
+    })
   }
 
 }

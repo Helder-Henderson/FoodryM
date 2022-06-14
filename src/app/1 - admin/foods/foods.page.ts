@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { IonRouterOutlet, ActionSheetController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { AdminService } from '../admin-service.service';
@@ -13,11 +14,20 @@ import { IFood } from '../models';
 export class FoodsPage implements OnInit {
 
   formFood: FormGroup;
+  foods: Array<any>;
 
-  constructor(private formBuilder: FormBuilder, public routerOutlet: IonRouterOutlet, public modalController: ModalController, private service :AdminService) { }
+  constructor(private formBuilder: FormBuilder, public routerOutlet: IonRouterOutlet, public modalController: ModalController, private service :AdminService,private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.initForms()
+    let id = this.activatedRoute.snapshot.paramMap.get('idRestaurant')
+    console.log(id)
+    this.service.GetFoodsByRestaurant('6').subscribe({
+      next: (response: Array<any>) => {
+        this.foods = response;
+        return;
+      }
+    })
   }
 
   initForms(): void {

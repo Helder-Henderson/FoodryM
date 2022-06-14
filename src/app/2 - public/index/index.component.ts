@@ -115,7 +115,7 @@ export class IndexComponent implements OnInit {
               if (response[i].Password == this.formPassword.controls.password.value.trim()) {
                 this.modalController.dismiss();
                 this.resetForms();
-                this.router.navigateByUrl("home/dashboard");
+                this.router.navigateByUrl("home/" + response[i].Id +'/dashboard');
                 return;
               }
               else {

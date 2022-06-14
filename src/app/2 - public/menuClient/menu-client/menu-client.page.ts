@@ -21,9 +21,5 @@ export class MenuClientPage implements OnInit {
         return;
       }
     })
-    console.log(this.listFoods)
   }
-
-  getfoods() { }
-
 }

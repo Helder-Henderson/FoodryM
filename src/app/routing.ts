@@ -17,7 +17,7 @@ export const routes: Routes = [
       component:RegisterComponent
     },
     {
-      path: 'home',
+      path: 'home/:idRestaurant',
       loadChildren: () => import('./1 - admin/home/home.module').then( m => m.HomePageModule)
     },
     {
