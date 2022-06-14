@@ -9,6 +9,10 @@ export const routes: Routes = [
       component:IndexComponent
     },
     {
+      path: 'menuClient',
+      loadChildren: () => import('./2 - public/menuClient/menu-client/menu-client-routing.module').then( m => m.MenuClientPageRoutingModule)
+    },
+    {
       path: 'register',
       component:RegisterComponent
     },
