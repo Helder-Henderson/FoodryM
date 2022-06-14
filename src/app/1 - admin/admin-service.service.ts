@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { IRegister } from './models/IRegister';
 
 @Injectable({
   providedIn: 'root'
@@ -30,8 +31,7 @@ export class AdminService {
   }]
 
 
-  basePort = 5202
-  baseUrl = `http://localhost:${this.basePort}/`;
+  baseUrl = `https://apifoodrym20220613224818.azurewebsites.net/`;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -41,6 +41,14 @@ export class AdminService {
 
   postFood(data: any): void {
 
+  }
+
+  GetAllRestaurant() {
+    return this.httpClient.get(this.baseUrl+`Allrestaurant`)
+  }
+
+  GetRestaurant(restaurantId: string){
+    return this.httpClient.get(this.baseUrl+`restaurant/${restaurantId}`)
   }
 
   GetAllAvailableFood(restaurantId: string, params: any): Observable<any> {

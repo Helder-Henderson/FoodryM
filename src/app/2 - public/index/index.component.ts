@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastComponent } from '../../components/toast/toast.component';
 import { ModalController } from '@ionic/angular';
+import { AdminService } from '../../1 - admin/admin-service.service';
 
 @Component({
   selector: 'app-index',
@@ -18,7 +19,7 @@ export class IndexComponent implements OnInit {
   formPassword: FormGroup;
 
 
-  constructor(private router: Router, private formBuilder: FormBuilder, public modalController: ModalController, private toastComponent: ToastComponent) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, public modalController: ModalController, private toastComponent: ToastComponent, private service: AdminService) { }
 
   ngOnInit() {
     this.InitModelController()
@@ -27,12 +28,14 @@ export class IndexComponent implements OnInit {
 
   mascaraCnpj() {
     var v = this.formEnterprise.controls.cnpj.value
-    v = v.replace(/\D/g, ""); //Remove tudo o que n�o � d�gito
-    v = v.replace(/^(\d{2})(\d)/, "$1.$2"); //Coloca ponto entre o segundo e o terceiro d�gitos
-    v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3"); //Coloca ponto entre o quinto e o sexto d�gitos
-    v = v.replace(/\.(\d{3})(\d)/, ".$1/$2"); //Coloca uma barra entre o oitavo e o nono d�gitos
-    v = v.replace(/(\d{4})(\d)/, "$1-$2"); //Coloca um h�fen depois do bloco de quatro d�gitos
-    this.formEnterprise.controls.cnpj.setValue(v);
+    if (v != null) {
+      v = v.replace(/\D/g, "");
+      v = v.replace(/^(\d{2})(\d)/, "$1.$2");
+      v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+      v = v.replace(/\.(\d{3})(\d)/, ".$1/$2");
+      v = v.replace(/(\d{4})(\d)/, "$1-$2");
+      this.formEnterprise.controls.cnpj.setValue(v);
+    }
   }
 
   InitModelController() {
@@ -62,37 +65,55 @@ export class IndexComponent implements OnInit {
     console.log(accessCode)
   }
 
-  EnterpriseValidation() {
-    if (this.formEnterprise.valid) {
-      //service -> verificar se cnpj está cadastrado 
-      this.setIsModalOpenEnterprise('false');
-      if (true) {
-        this.setIsModalOpenPassword('true');
-      }
-      else {
-        this.modalController.dismiss();
-        this.router.navigateByUrl('register');
-      }
-    }
-  }
-
   resetForms() {
     this.formPassword.reset()
     this.formEnterprise.reset()
   }
 
-  EnterpriseAuthentication() {
-    if (this.formPassword.valid) {
-      // autentica cadastro
-      if (true) {
-        this.modalController.dismiss();
-        this.resetForms(); // Isso deveria existir depois dos dados serem enviados para a service.
-        this.router.navigateByUrl("home/dashboard");
-      }
-      else {
-        this.toastComponent.presentToast('Senha incorreta!', 3000);
-      }
+  async EnterpriseValidation() {
+    if (this.formEnterprise.valid) {
+      let cnpj: string = this.formEnterprise.controls.cnpj.value.replace(/\D/g, "")
+
+      this.service.GetAllRestaurant().subscribe({
+        next: (response: Array<any>) => {
+          for (var i = 0; i < response.length; i++) {
+            if (response[i].Cnpj == cnpj) {
+              this.setIsModalOpenEnterprise('false');
+              this.setIsModalOpenPassword('true');
+              return;
+            }
+          }
+          this.setIsModalOpenEnterprise('false');
+          this.modalController.dismiss();
+          this.resetForms();
+          this.router.navigateByUrl('register');
+        }
+      })
     }
   }
 
+  EnterpriseAuthentication() {
+    if (this.formPassword.valid) {
+      let cnpj: string = this.formEnterprise.controls.cnpj.value.replace(/\D/g, "")
+
+      this.service.GetAllRestaurant().subscribe({
+        next: (response: Array<any>) => {
+          for (var i = 0; i < response.length; i++) {
+            if (response[i].Cnpj == cnpj) {
+              if (response[i].Password == this.formPassword.controls.password.value.trim()) {
+                this.modalController.dismiss();
+                this.resetForms();
+                this.router.navigateByUrl("home/dashboard");
+                return;
+              }
+              else {
+                this.toastComponent.presentToast('Senha incorreta!', 3000);
+                return;
+              }
+            }
+          }
+        }
+      })
+    }
+  }
 }
