@@ -39,8 +39,12 @@ export class AdminService {
     return this.pages;
   }
 
-  postFood(data: any): void {
-
+  PostFood(data: any): void {
+    this.httpClient.post(this.baseUrl+`food`, new Object(data)).subscribe({
+      next: (response) => { 
+        console.log(response)
+      }
+    })
   }
 
   GetAllRestaurant() {
@@ -65,9 +69,6 @@ export class AdminService {
         "Available": params.Available
       },
     })
-
-
-
   }
 
 }
