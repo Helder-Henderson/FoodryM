@@ -3,13 +3,15 @@
 
     <ion-modal trigger="MClient" [isOpen]="false" [initialBreakpoint]="0.3">
       <ng-template>
+        <form [formGroup]="formAcess" (ngSubmit)="AccessRedirect()">
           <ion-row class="ion-justify-content-center ion-margin">
             <ion-item style="margin-bottom: 1rem;">
               <ion-label position="stacked">Código do Cardápio:</ion-label>
-              <ion-input type="number" #accessCode placeholder="ex: 0001"></ion-input>
+              <ion-input type="text" inputmode="numeric" formControlName="acessCode" placeholder="ex: 0001" minLength="4" maxlength="4"></ion-input>
             </ion-item>
-            <ion-button (click)="AccessRedirect(accessCode.value)">Confirmar</ion-button>
+            <ion-button disabled={{!formAcess.valid}} type="submit">Confirmar</ion-button>
           </ion-row>
+        </form>
       </ng-template>
     </ion-modal>
 

@@ -17,6 +17,7 @@ export class IndexComponent implements OnInit {
   isModalOpenPassword: string = "false";
   formEnterprise: FormGroup;
   formPassword: FormGroup;
+  formAcess: FormGroup;
 
 
   constructor(private router: Router, private formBuilder: FormBuilder, public modalController: ModalController, private toastComponent: ToastComponent, private service: AdminService) { }
@@ -51,6 +52,9 @@ export class IndexComponent implements OnInit {
     this.formPassword = this.formBuilder.group({
       password: [null, [Validators.minLength(8), Validators.required]]
     });
+    this.formAcess = this.formBuilder.group({
+      acessCode: [null, [Validators.minLength(4), Validators.maxLength(4), Validators.required]]
+    });
   }
 
   setIsModalOpenEnterprise(status: string) {
@@ -61,20 +65,22 @@ export class IndexComponent implements OnInit {
     this.isModalOpenPassword = status;
   }
 
-  AccessRedirect(accessCode: string) {
-    this.service.GetAllRestaurant().subscribe({
-      next: (response: Array<any>) => {
-        for (var i = 0; i < response.length; i++) {
-          if (response[i].Id == accessCode) {
-            this.modalController.dismiss();
-            this.router.navigateByUrl("menuClient/" + accessCode);
-            return;
+  AccessRedirect() {
+    if (this.formAcess.valid){
+      this.service.GetAllRestaurant().subscribe({
+        next: (response: Array<any>) => {
+          for (var i = 0; i < response.length; i++) {
+            if (response[i].Id == this.formAcess.controls.acessCode.value) {
+              this.modalController.dismiss();
+              this.router.navigateByUrl("menuClient/" + this.formAcess.controls.acessCode.value);
+              return;
+            }
           }
+          this.toastComponent.presentToast('Código inválido!', 3000);
+          return;
         }
-        this.toastComponent.presentToast('Código inválido!', 3000);
-        return;
-      }
-    })
+      })
+    }
   }
 
   resetForms() {

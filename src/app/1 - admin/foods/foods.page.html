@@ -16,9 +16,13 @@
 
   <ion-content>
     <ion-item *ngFor="let food of foods">
-      <ion-label>
-        <h2><strong>{{ food.name }}</strong></h2>
-        <p>{{ food.price }}</p>
+      <ion-thumbnail class="ion-margin-start">
+        <ion-img src="../../../../assets/images/foodsDefault.png">
+        </ion-img>
+      </ion-thumbnail>
+
+      <ion-label class="ion-margin-start">
+        <h2><strong>{{ food.Name }}</strong></h2>
       </ion-label>
 
       <div class="item-note" item-end>
@@ -80,6 +84,11 @@
         <ion-item style="margin-bottom: 1rem;">
           <ion-label position="stacked">Observações: </ion-label>
           <ion-textarea formControlName="note" maxlength="300"></ion-textarea>
+        </ion-item>
+
+        <ion-item style="margin-bottom: 1rem;">
+          <ion-label position="stacked">Imagem: </ion-label>
+          <ion-input type="file" formControlName="img"></ion-input>
         </ion-item>
       </form>
     </ion-content>

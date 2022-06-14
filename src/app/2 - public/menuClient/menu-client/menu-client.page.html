@@ -14,5 +14,6 @@
       <h2><strong>{{ user.Name }}</strong></h2>
       <p>R$ {{ user.Price }},00</p>
     </ion-label>
+    <ion-icon id="{{user.Id}}" (click)="openModalDetails(user.Id)" name="eye-outline"></ion-icon>
   </ion-item>
 </ion-content>

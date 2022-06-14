@@ -14,7 +14,9 @@ export class ItemDetailComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.data)
+  }
 
   dismissModal() {
     this.modal.dismiss();

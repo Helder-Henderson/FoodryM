@@ -22,11 +22,11 @@ export class HomePage implements OnInit {
       url: '/home/'+this.activatedRoute.snapshot.paramMap.get('idRestaurant')+'/foods',
       icon: 'fast-food'
     },
-    {
-      title: 'Cardápio',
-      url: '/home/'+this.activatedRoute.snapshot.paramMap.get('idRestaurant')+'/menu',
-      icon: 'list'
-    },
+    // {
+    //   title: 'Cardápio',
+    //   url: '/home/'+this.activatedRoute.snapshot.paramMap.get('idRestaurant')+'/menu',
+    //   icon: 'list'
+    // },
     {
       title: 'Sair',
       url: '/exit',
