@@ -51,6 +51,14 @@ export class AdminService {
     return this.httpClient.get(this.baseUrl+`restaurant/${restaurantId}`)
   }
 
+  PostRestaurant(obj: IRegister) {
+    return this.httpClient.post(this.baseUrl+`restaurant/`,obj)
+  }
+
+  GetFoodsByRestaurant(num: string) {
+    return this.httpClient.get(this.baseUrl+`food/restaurant/${num}`)
+  }
+
   GetAllAvailableFood(restaurantId: string, params: any): Observable<any> {
     return this.httpClient.get(this.baseUrl+`food/restaurant/${restaurantId}`, {
       params: {

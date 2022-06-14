@@ -62,16 +62,19 @@ export class IndexComponent implements OnInit {
   }
 
   AccessRedirect(accessCode: string) {
-    // verifica se existe restaurante para esse code
-    if (true) {
-      this.modalController.dismiss();
-      this.router.navigateByUrl("menuClient");
-      return;
-    }
-    else {
-      this.toastComponent.presentToast('Código inválido!', 3000);
-      return;
-    }
+    this.service.GetAllRestaurant().subscribe({
+      next: (response: Array<any>) => {
+        for (var i = 0; i < response.length; i++) {
+          if (response[i].Id == accessCode) {
+            this.modalController.dismiss();
+            this.router.navigateByUrl("menuClient/" + accessCode);
+            return;
+          }
+        }
+        this.toastComponent.presentToast('Código inválido!', 3000);
+        return;
+      }
+    })
   }
 
   resetForms() {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Data, Router } from '@angular/router';
+import { AdminService } from '../admin-service.service';
 import { IRegister } from '../models/index';
 
 @Component({
@@ -10,7 +11,7 @@ import { IRegister } from '../models/index';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private router: Router, private formBuilder: FormBuilder) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private service: AdminService) { }
 
   form: FormGroup;
 
@@ -46,9 +47,20 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-  register(data: IRegister): void {
+  register(data): void {
     if (this.form.valid) {
-      this.router.navigateByUrl("home/dashboard")
+
+      var reg: IRegister = {
+      cnpj : data.cnpj.value.replace(/\D/g, ""),
+      password : data.password.value,
+      fantasyName : data.fantasyName.value,
+      phone : data.phone.value.replace(/\D/g, ""),
+      email : data.email.value
+      }
+
+      console.log(this.service.PostRestaurant(reg));
+
+      // this.router.navigateByUrl("home/dashboard")
     }
     // registraEmpresa
     // Se tudo certo então 
