@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AdminService {
+  
   pages = [{
     title: 'Painel de Controle',
     url: '/home/dashboard',
@@ -27,9 +29,29 @@ export class AdminService {
     icon: 'exit'
   }]
 
-  constructor() { }
+
+  basePort = 5202
+  baseUrl = `http://localhost:${this.basePort}/`;
+
+  constructor(private httpClient: HttpClient) { }
 
   getPages(): Array<any> {
     return this.pages;
   }
+
+  postFood(data: any): void {
+
+  }
+
+  GetAllAvailableFood(restaurantId: string, params: any): Observable<any> {
+    return this.httpClient.get(this.baseUrl+`food/restaurant/${restaurantId}`, {
+      params: {
+        "Available": params.Available
+      },
+    })
+
+
+
+  }
+
 }

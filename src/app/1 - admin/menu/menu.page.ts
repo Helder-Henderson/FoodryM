@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { DetailsComponent } from './details/details.component';
+import { AdminService } from '../admin-service.service';
+import { ItemDetailComponent } from './details/item-detail/item-detail.component';
 
 @Component({
   selector: 'app-menu',
@@ -9,35 +10,40 @@ import { DetailsComponent } from './details/details.component';
 })
 export class MenuPage implements OnInit {
 
-  constructor(private modalController: ModalController) { }
+  constructor(private modalController: ModalController, private service: AdminService) { }
 
 
+  menu: Array<any>;
 
 
   ngOnInit() {
-
+    this.getDataMenu()
   }
 
-  async createModal(props: object) {
-    await this.modalController.create({
-      component: DetailsComponent,
-      componentProps: {
-        data: props
+  
+  async openModalDetails(id : any) {
+
+
+    const modal = await this.modalController.create({
+      component: ItemDetailComponent,
+      componentProps : {
+        data:this.menu,
+        id: id,
+        modal: this.modalController
       }
     });
+    
+    return modal.present()
+    
   }
 
-
-  showDetailsItem(name: string, time: string, value: string, url: string, id: number) {
-    const props = {
-      "name": name,
-      "time": time,
-      "value": value,
-      "url": url,
-      "id": id
-    }
-
-    this.createModal(props).then()
+  getDataMenu() {
+    this.service.GetAllAvailableFood('1', { "Available": "" }).subscribe({
+      next: (response) => {
+        this.menu = response;
+      }
+    })
   }
+
 
 }

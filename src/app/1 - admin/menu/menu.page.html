@@ -15,17 +15,13 @@
   </ion-header>
 
   <div id="container">
-    <ion-list-header lines="inset" class="box-item">
-      <ion-avatar class="box-avatar">
-        <ion-img class="" src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"></ion-img>
-      </ion-avatar>
-      <ion-label>Service Name</ion-label>
-      <ion-icon id="dynamic" (click)="createModal()" class="box-dropDown" name="eye-outline"></ion-icon>
-    </ion-list-header>
-
-    <ion-modal trigger="dynamic">
-      <app-details></app-details>
-    </ion-modal>
+    <ion-list>
+      <ion-item class="food-item" *ngFor="let item of menu">
+        <span>{{item.Price}} </span>
+        <strong>{{item.Name}}</strong>
+        <ion-icon id="{{item.Id}}" (click)="openModalDetails(item.Id)" name="eye-outline"></ion-icon>
+      </ion-item>
+    </ion-list>
 
   </div>
 </ion-content>

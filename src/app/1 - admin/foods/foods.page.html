@@ -48,7 +48,7 @@
     <ion-header translucent="" role="banner"
       class="md header-md header-translucent header-collapse-none header-translucent-md hydrated">
       <ion-toolbar class="toolbar-title-default md in-toolbar hydrated">
-        <ion-title class="md title-default hydrated">Cadastro de Comidas</ion-title>
+        <ion-title class="md title-default hydrated">Cadastro Comida</ion-title>
         <ion-buttons slot="end">
           <ion-button color="primary" (click)="dismissModal()">
             <ion-icon slot="start" [ios]="'close-outline'" [md]="'close-sharp'"></ion-icon>
@@ -79,15 +79,19 @@
           <ion-label position="stacked">Observações: </ion-label>
           <ion-textarea formControlName="note" maxlength="300"></ion-textarea>
         </ion-item>
+        <ion-toolbar class="toolbar-title-default md in-toolbar hydrated">
+          <ion-buttons slot="end">
+            <ion-button color="primary" disabled={{!formFood.valid}} fill="solid" type="button" (click)="AddFood(formFood.controls)">Incluir
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
       </form>
-    </ion-content>
 
+
+      
+    </ion-content>
     <ion-footer class="md footer-md footer-translucent footer-collapse-none footer-translucent-md hydrated">
-      <ion-toolbar class="toolbar-title-default md in-toolbar hydrated">
-        <ion-buttons slot="end">
-          <ion-button color="primary" disabled={{!formFood.valid}} type="submit" fill="solid" (click)="AddFood()">Incluir</ion-button>
-        </ion-buttons>
-      </ion-toolbar>
+     
     </ion-footer>
   </ng-template>
 </ion-modal>

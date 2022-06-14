@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { IndexModule } from './2 - public/index/index.module';
 import { RegisterModule } from './1 - admin/register/register.module';
 import { ToastComponent } from './components/toast/toast.component';
+import { ItemDetailComponent } from './1 - admin/menu/details/item-detail/item-detail.component';
 
 @NgModule({
   declarations: [AppComponent],

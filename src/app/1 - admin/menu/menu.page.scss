@@ -22,21 +22,6 @@ ion-menu-button {
   text-decoration: none;
 }
 
-.box-item {
-  margin: 1rem 0;
-
-  font-size:1.1rem;
-}
-
-.box-avatar {
-  border: 1px solid red;
-
-  width: 2.5rem;
-  height: 2.5rem;
-
-  margin-right: 1rem
-}
-
-.box-dropDown {
-  font-size:1.4rem;
+.food-item {
+  display:flex !important;
 }

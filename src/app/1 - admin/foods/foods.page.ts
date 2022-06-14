@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IonRouterOutlet, ActionSheetController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
+import { AdminService } from '../admin-service.service';
 
 @Component({
   selector: 'app-foods',
@@ -12,7 +13,7 @@ export class FoodsPage implements OnInit {
 
   formFood: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, public routerOutlet: IonRouterOutlet, public modalController : ModalController) { }
+  constructor(private formBuilder: FormBuilder, public routerOutlet: IonRouterOutlet, public modalController : ModalController, private adminService : AdminService) { }
 
   ngOnInit() {
     this.initForms()
@@ -31,11 +32,17 @@ export class FoodsPage implements OnInit {
     this.modalController.dismiss();
   }
 
-  AddFood()
+  AddFood(data : any)
   {
-    if (this.formFood.valid) {
-      // Cadastra Prato
+    console.log(data)
+    const dataSend =  {
+      "name":data.name,
+      "price":data.price,
+      "time": data.time,
+      "description": data.note
     }
+    
+    this.adminService.postFood(dataSend)
   }
 
 }
